@@ -5,6 +5,26 @@ import Home from './Home';
 import Scores from './Scores';
 import Profile from './Profile';
 
+const UserActions = () => <>
+  <Link to="/profile">Profile</Link> / <LogoutButton />
+</>;
+
+const LoginButton = () => {
+  const { loginWithRedirect } = useAuth0();
+
+  return (
+    <a onClick={() => loginWithRedirect()}>Log in</a>
+  );
+};
+
+const LogoutButton = () => {
+  const { logout } = useAuth0();
+
+  return (
+    <a onClick={() => logout({ returnTo: window.location.origin})}>Log out</a>
+  );
+};
+
 const ProtectedRoute = () => {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
 
@@ -27,7 +47,8 @@ const App = () => {
             <ul>
               <li><Link to="/">Home</Link></li>
               <li><Link to="/scores">Scores</Link></li>
-              {isAuthenticated ? <li><Link to="/profile">Profile</Link></li> : <li><Link to="/signin">Sign In</Link></li>}
+              <li>{ isAuthenticated ? <UserActions /> : <LoginButton /> }</li>
+           
             </ul>
           </nav>
         </header>
