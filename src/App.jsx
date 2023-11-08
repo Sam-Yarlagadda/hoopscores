@@ -17,7 +17,7 @@ const ProtectedRoute = () => {
 };
 
 const App = () => {
-  const { isLoading } = useAuth0();
+  const { isLoading, isAuthenticated } = useAuth0();
 
   return (
     !isLoading && (
